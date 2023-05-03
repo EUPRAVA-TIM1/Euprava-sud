@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wCWSVtfvMLXQxciGZi9SFHCtsBHc3nXptMZu3GkL0aIl2BGaGtp7dUOL1hJBxyvNb/zE0r8H0/oJH3O3xDjPTQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HP\\Documents\\Predavanja\\Semestar 6\\Tehnologije i sistemi eUprave\\Projekat\\euprava-sud\\euprava-sud\\euprava-sud.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.0\\microsoft.visualstudio.azure.containers.tools.targets.1.17.0.nupkg.sha512"
+  ],
+  "logs": []
+}
