@@ -1,5 +1,6 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Data;
+using euprava_sud.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,23 +10,33 @@ namespace euprava_sud.Controllers
     [ApiController]
     public class OpstinaController : ControllerBase
     {
-        private readonly DataContext _dbContext;
-        public OpstinaController(DataContext dataContext)
+        private readonly IOpstinaService _opstinaService;
+        public OpstinaController(IOpstinaService opstinaService)
         {
-            _dbContext = dataContext;
+            _opstinaService = opstinaService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Opstina>> GetOpstine()
+        public async Task<ActionResult<IEnumerable<Opstina>>> GetOpstine()
         {
-            return _dbContext.Opstine;
+            return Ok(_opstinaService.GetAll());
         }
-        [HttpGet("{ptt:int}")]
-        public ActionResult<Opstina> GetByPTT(int ptt)
+        [HttpGet("ptt/{ptt}")]
+        public async Task<ActionResult<Opstina>> GetByPTT(int ptt)
         {
             
-            var opstina = _dbContext.Opstine.Where(o => o.PTT == ptt).First();
+            var opstina = await _opstinaService.GetByPTT(ptt);
             
+            if (opstina == null)
+                return NotFound();
+            return Ok(opstina);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Opstina>> GetById(string id)
+        {
+
+            var opstina = await _opstinaService.GetById(Guid.Parse(id));
+
             if (opstina == null)
                 return NotFound();
             return Ok(opstina);
@@ -33,26 +44,30 @@ namespace euprava_sud.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Opstina opstina)
         {
-            await _dbContext.Opstine.AddAsync(opstina);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+            var retVal = await _opstinaService.Add(opstina);
+            if (retVal == null)
+                return BadRequest();
+            return Ok(retVal);
         }
 
         [HttpPut]
         public async Task<ActionResult> Update (Opstina opstina)
         {
-            _dbContext.Opstine.Update(opstina);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+            var retVal = await _opstinaService.Update(opstina);
+            if (retVal == null)
+                return BadRequest();
+            return Ok(retVal);
         }
 
-        [HttpDelete("{ptt:int}")]
-        public async Task<ActionResult> Delete(int ptt)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
         {
-            var opstina = await _dbContext.Opstine.FindAsync(ptt);
-            _dbContext.Opstine.Remove(opstina);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
+            var opstina = await _opstinaService.Delete(Guid.Parse(id));
+            if (opstina == null)
+            {
+                return BadRequest();
+            }
+            return Ok(opstina);
         }
     }
 }
