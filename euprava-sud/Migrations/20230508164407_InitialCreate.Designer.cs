@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230507110948_InitialCreate")]
+    [Migration("20230508164407_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,21 +38,6 @@ namespace euprava_sud.Migrations
                     b.HasIndex("PrekrsajnaPrijavaId");
 
                     b.ToTable("OdlukaSudijeDokumenti", (string)null);
-                });
-
-            modelBuilder.Entity("GradjaninPrekrsajnaPrijava", b =>
-                {
-                    b.Property<Guid>("PrekrsajnaPrijavaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SvedociJmbg")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PrekrsajnaPrijavaId", "SvedociJmbg");
-
-                    b.HasIndex("SvedociJmbg");
-
-                    b.ToTable("OdlukaSudijeSvedoci", (string)null);
                 });
 
             modelBuilder.Entity("eUprava.Court.Model.Dokument", b =>
@@ -145,7 +130,7 @@ namespace euprava_sud.Migrations
 
                     b.Property<string>("AdvokatJmbg")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
@@ -165,8 +150,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PredmetId");
-
-                    b.HasIndex("AdvokatJmbg");
 
                     b.HasIndex("PrekrsajnaPrijavaId");
 
@@ -191,7 +174,7 @@ namespace euprava_sud.Migrations
 
                     b.Property<string>("OptuzeniJmbg")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Prekrsaj")
                         .HasColumnType("int");
@@ -201,7 +184,7 @@ namespace euprava_sud.Migrations
 
                     b.Property<string>("PrijavljenoOdJmbg")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StatusPrekrsajnePrijave")
                         .HasColumnType("int");
@@ -213,10 +196,6 @@ namespace euprava_sud.Migrations
                     b.HasKey("PrekrsajnaPrijavaId");
 
                     b.HasIndex("OpstinaId");
-
-                    b.HasIndex("OptuzeniJmbg");
-
-                    b.HasIndex("PrijavljenoOdJmbg");
 
                     b.HasIndex("SudijaJmbg");
 
@@ -343,21 +322,6 @@ namespace euprava_sud.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GradjaninPrekrsajnaPrijava", b =>
-                {
-                    b.HasOne("eUprava.Court.Model.PrekrsajnaPrijava", null)
-                        .WithMany()
-                        .HasForeignKey("PrekrsajnaPrijavaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eUprava.Court.Model.Gradjanin", null)
-                        .WithMany()
-                        .HasForeignKey("SvedociJmbg")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("eUprava.Court.Model.Gradjanin", b =>
                 {
                     b.HasOne("eUprava.Court.Model.Opstina", "Opstina")
@@ -371,19 +335,11 @@ namespace euprava_sud.Migrations
 
             modelBuilder.Entity("eUprava.Court.Model.Predmet", b =>
                 {
-                    b.HasOne("eUprava.Court.Model.Gradjanin", "Advokat")
-                        .WithMany()
-                        .HasForeignKey("AdvokatJmbg")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("eUprava.Court.Model.PrekrsajnaPrijava", "PrekrsajnaPrijava")
                         .WithMany()
                         .HasForeignKey("PrekrsajnaPrijavaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Advokat");
 
                     b.Navigation("PrekrsajnaPrijava");
                 });
@@ -396,18 +352,6 @@ namespace euprava_sud.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("eUprava.Court.Model.Gradjanin", "Optuzeni")
-                        .WithMany()
-                        .HasForeignKey("OptuzeniJmbg")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("eUprava.Court.Model.Gradjanin", "PrijavljenoOd")
-                        .WithMany()
-                        .HasForeignKey("PrijavljenoOdJmbg")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
                         .WithMany()
                         .HasForeignKey("SudijaJmbg")
@@ -415,10 +359,6 @@ namespace euprava_sud.Migrations
                         .IsRequired();
 
                     b.Navigation("Opstina");
-
-                    b.Navigation("Optuzeni");
-
-                    b.Navigation("PrijavljenoOd");
 
                     b.Navigation("Sudija");
                 });

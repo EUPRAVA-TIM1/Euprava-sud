@@ -92,8 +92,8 @@ namespace euprava_sud.Migrations
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Komentar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PrijavljenoOdJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrijavljenoOdJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     OpstinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Prekrsaj = table.Column<int>(type: "int", nullable: false),
@@ -103,18 +103,6 @@ namespace euprava_sud.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrekrsajnePrijave", x => x.PrekrsajnaPrijavaId);
-                    table.ForeignKey(
-                        name: "FK_PrekrsajnePrijave_Gradjani_OptuzeniJmbg",
-                        column: x => x.OptuzeniJmbg,
-                        principalTable: "Gradjani",
-                        principalColumn: "Jmbg",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PrekrsajnePrijave_Gradjani_PrijavljenoOdJmbg",
-                        column: x => x.PrijavljenoOdJmbg,
-                        principalTable: "Gradjani",
-                        principalColumn: "Jmbg",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PrekrsajnePrijave_Gradjani_SudijaJmbg",
                         column: x => x.SudijaJmbg,
@@ -154,30 +142,6 @@ namespace euprava_sud.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OdlukaSudijeSvedoci",
-                columns: table => new
-                {
-                    PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SvedociJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OdlukaSudijeSvedoci", x => new { x.PrekrsajnaPrijavaId, x.SvedociJmbg });
-                    table.ForeignKey(
-                        name: "FK_OdlukaSudijeSvedoci_Gradjani_SvedociJmbg",
-                        column: x => x.SvedociJmbg,
-                        principalTable: "Gradjani",
-                        principalColumn: "Jmbg",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OdlukaSudijeSvedoci_PrekrsajnePrijave_PrekrsajnaPrijavaId",
-                        column: x => x.PrekrsajnaPrijavaId,
-                        principalTable: "PrekrsajnePrijave",
-                        principalColumn: "PrekrsajnaPrijavaId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Predmeti",
                 columns: table => new
                 {
@@ -185,19 +149,13 @@ namespace euprava_sud.Migrations
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Naslov = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdvokatJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Predmeti", x => x.PredmetId);
-                    table.ForeignKey(
-                        name: "FK_Predmeti_Gradjani_AdvokatJmbg",
-                        column: x => x.AdvokatJmbg,
-                        principalTable: "Gradjani",
-                        principalColumn: "Jmbg",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Predmeti_PrekrsajnePrijave_PrekrsajnaPrijavaId",
                         column: x => x.PrekrsajnaPrijavaId,
@@ -296,11 +254,6 @@ namespace euprava_sud.Migrations
                 column: "PrekrsajnaPrijavaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OdlukaSudijeSvedoci_SvedociJmbg",
-                table: "OdlukaSudijeSvedoci",
-                column: "SvedociJmbg");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OdlukeSudija_PredmetId",
                 table: "OdlukeSudija",
                 column: "PredmetId");
@@ -322,11 +275,6 @@ namespace euprava_sud.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Predmeti_AdvokatJmbg",
-                table: "Predmeti",
-                column: "AdvokatJmbg");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Predmeti_PrekrsajnaPrijavaId",
                 table: "Predmeti",
                 column: "PrekrsajnaPrijavaId");
@@ -335,16 +283,6 @@ namespace euprava_sud.Migrations
                 name: "IX_PrekrsajnePrijave_OpstinaId",
                 table: "PrekrsajnePrijave",
                 column: "OpstinaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PrekrsajnePrijave_OptuzeniJmbg",
-                table: "PrekrsajnePrijave",
-                column: "OptuzeniJmbg");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PrekrsajnePrijave_PrijavljenoOdJmbg",
-                table: "PrekrsajnePrijave",
-                column: "PrijavljenoOdJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrekrsajnePrijave_SudijaJmbg",
@@ -377,9 +315,6 @@ namespace euprava_sud.Migrations
         {
             migrationBuilder.DropTable(
                 name: "OdlukaSudijeDokumenti");
-
-            migrationBuilder.DropTable(
-                name: "OdlukaSudijeSvedoci");
 
             migrationBuilder.DropTable(
                 name: "OdlukeSudija");

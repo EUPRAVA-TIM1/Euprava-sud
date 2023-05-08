@@ -84,17 +84,17 @@ namespace euprava_sud.Data
                 .HasForeignKey(o => o.PredmetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PrekrsajnaPrijava>()
+            /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.Optuzeni)
                 .WithMany()
                 .HasForeignKey(p => p.OptuzeniJmbg)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
 
-            modelBuilder.Entity<PrekrsajnaPrijava>()
+            /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.PrijavljenoOd)
                 .WithMany()
                 .HasForeignKey(p => p.PrijavljenoOdJmbg)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
 
             modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.Sudija)
@@ -108,10 +108,11 @@ namespace euprava_sud.Data
                 .HasForeignKey(p => p.OpstinaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PrekrsajnaPrijava>()
+
+            /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasMany(o => o.Svedoci)
                 .WithMany()
-                .UsingEntity(j => j.ToTable("OdlukaSudijeSvedoci"));
+                .UsingEntity(j => j.ToTable("OdlukaSudijeSvedoci"));*/
 
             modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasMany(o => o.Dokumenti)
@@ -135,11 +136,11 @@ namespace euprava_sud.Data
                 .WithMany()
                 .UsingEntity(j => j.ToTable("SudRocista"));*/
 
-            modelBuilder.Entity<Predmet>()
+            /*modelBuilder.Entity<Predmet>()
                 .HasOne(p => p.Advokat)
                 .WithMany()
                 .HasForeignKey(p => p.AdvokatJmbg)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
             modelBuilder.Entity<Predmet>()
                 .HasOne(p => p.PrekrsajnaPrijava)
                 .WithMany()

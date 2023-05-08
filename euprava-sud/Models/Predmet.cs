@@ -14,8 +14,8 @@ namespace eUprava.Court.Model
         public string Naslov { get; set; }
         public string Opis { get; set; }
 
-        public Gradjanin Advokat { get; set; }
-        [ForeignKey("Advokat")]
+        /*public Gradjanin Advokat { get; set; }
+        [ForeignKey("Advokat")]*/
         public string AdvokatJmbg { get; set; }
         [DefaultValue(StatusPredmeta.OTVOREN)]
         public StatusPredmeta Status { get; set; }
