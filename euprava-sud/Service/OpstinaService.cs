@@ -53,15 +53,15 @@ namespace euprava_sud.Service
             return opstina.FirstOrDefault();
         }
 
-        public async Task<Opstina> Update(Opstina entity)
+        public async Task<Opstina> Update(Opstina opstina)
         {
-            var opstina = await _opstinaRepository.GetById(entity.OpstinaId);
-            if (opstina == null)
+            var ifExist = await _opstinaRepository.GetById(opstina.OpstinaId);
+            if (ifExist == null)
             {
                 return null;
             }
-            await _opstinaRepository.Update(entity);
-            return entity;
+            await _opstinaRepository.Update(opstina);
+            return opstina;
         }
     }
 }
