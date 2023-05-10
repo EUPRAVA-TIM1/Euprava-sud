@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230508164407_InitialCreate")]
+    [Migration("20230508183042_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -179,9 +179,6 @@ namespace euprava_sud.Migrations
                     b.Property<int>("Prekrsaj")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("PrekrsajId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PrijavljenoOdJmbg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -244,6 +241,10 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("SudId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OpstinaId")
                         .HasColumnType("uniqueidentifier");

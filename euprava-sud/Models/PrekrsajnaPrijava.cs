@@ -19,15 +19,14 @@ namespace eUprava.Court.Model
         [ForeignKey("PrijavljenoOd")]*/
         public string PrijavljenoOdJmbg { get; set; }
         /*public List<Gradjanin> Svedoci { get; set; } = new List<Gradjanin>();*/
-        public Sudija Sudija { get; set; }
+        public Sudija? Sudija { get; set; }
         
         [ForeignKey("Sudija")]
         public string SudijaJmbg { get; set; }
 
-        public Opstina Opstina { get; set; }
+        public Opstina? Opstina { get; set; }
         public Guid OpstinaId { get; set; }
         public Prekrsaj Prekrsaj { get; set; }
-        public Guid PrekrsajId { get; set; }
         public List<Dokument> Dokumenti { get; set; } = new List<Dokument>();
         [DefaultValue(StatusPrekrsajnePrijave.AKTIVAN)]
         public StatusPrekrsajnePrijave StatusPrekrsajnePrijave { get; set; }

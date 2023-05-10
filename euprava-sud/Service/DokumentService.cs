@@ -1,4 +1,5 @@
-﻿using eUprava.Court.Model;
+﻿using AutoMapper;
+using eUprava.Court.Model;
 using euprava_sud.Repository;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
@@ -8,10 +9,12 @@ namespace euprava_sud.Service
     public class DokumentService : IDokumentService
     {
         private readonly IDokumentRepository _dokumentRepository;
+        private readonly IMapper _mapper;
 
-        public DokumentService(IDokumentRepository dokumentRepository)
+        public DokumentService(IDokumentRepository dokumentRepository, IMapper mapper)
         {
             _dokumentRepository = dokumentRepository;
+            _mapper = mapper;
         }
 
         public async Task<Dokument> Add(Dokument dokument)
@@ -46,8 +49,10 @@ namespace euprava_sud.Service
             var ifExist = await _dokumentRepository.GetById(dokument.DokumentId);
             if (ifExist != null)
             {
-                await _dokumentRepository.Update(dokument);
-                return dokument;
+                dokument.DokumentId = ifExist.DokumentId;
+                _mapper.Map(dokument, ifExist);
+                await _dokumentRepository.Update(ifExist);
+                return ifExist;
             }
             return null;
         }

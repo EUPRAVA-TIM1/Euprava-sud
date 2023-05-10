@@ -1,4 +1,5 @@
-﻿using euprava_sud.Model;
+﻿using AutoMapper;
+using euprava_sud.Model;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
 using System;
@@ -8,10 +9,12 @@ namespace euprava_sud.Service
     public class OdlukaSudijeService : IOdlukaSudijeService
     {
         private readonly IOdlukaSudijeRepository _odlukaSudijeRepository;
+        private readonly IMapper _mapper;
 
-        public OdlukaSudijeService(IOdlukaSudijeRepository odlukaSudijeRepository)
+        public OdlukaSudijeService(IOdlukaSudijeRepository odlukaSudijeRepository, IMapper mapper)
         {
             _odlukaSudijeRepository = odlukaSudijeRepository;
+            _mapper = mapper;
         }
         public async Task<OdlukaSudije> Add(OdlukaSudije entity)
         {
@@ -45,8 +48,10 @@ namespace euprava_sud.Service
             var odluka = await _odlukaSudijeRepository.GetById(entity.OdlukaSudijeId);
             if (odluka != null)
             {
-                await _odlukaSudijeRepository.Update(entity);
-                return entity;
+                entity.OdlukaSudijeId = odluka.OdlukaSudijeId;
+                _mapper.Map(entity, odluka);
+                await _odlukaSudijeRepository.Update(odluka);
+                return odluka;
             }
             return null;
         }

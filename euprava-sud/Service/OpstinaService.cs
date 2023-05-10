@@ -1,4 +1,5 @@
-﻿using eUprava.Court.Model;
+﻿using AutoMapper;
+using eUprava.Court.Model;
 using euprava_sud.Repository;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
@@ -9,9 +10,11 @@ namespace euprava_sud.Service
     public class OpstinaService : IOpstinaService
     {
         private readonly IOpstinaRepository _opstinaRepository;
-        public OpstinaService(IOpstinaRepository opstinaRepository)
+        private readonly IMapper _mapper;
+        public OpstinaService(IOpstinaRepository opstinaRepository, IMapper mapper)
         {
             _opstinaRepository = opstinaRepository;
+            _mapper = mapper;
         }
 
         public async Task<Opstina> Add(Opstina entity)
@@ -56,12 +59,15 @@ namespace euprava_sud.Service
         public async Task<Opstina> Update(Opstina opstina)
         {
             var ifExist = await _opstinaRepository.GetById(opstina.OpstinaId);
-            if (ifExist == null)
+            if (ifExist != null)
             {
-                return null;
+                opstina.OpstinaId = ifExist.OpstinaId;
+                _mapper.Map(opstina, ifExist);
+                await _opstinaRepository.Update(ifExist);
+                return ifExist;
             }
-            await _opstinaRepository.Update(opstina);
-            return opstina;
+            return null;
+            
         }
     }
 }

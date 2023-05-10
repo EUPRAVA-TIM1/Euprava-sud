@@ -176,9 +176,6 @@ namespace euprava_sud.Migrations
                     b.Property<int>("Prekrsaj")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("PrekrsajId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PrijavljenoOdJmbg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -241,6 +238,10 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("SudId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OpstinaId")
                         .HasColumnType("uniqueidentifier");

@@ -17,6 +17,8 @@ FROM build AS publish
 # RUN dotnet publish "euprava-sud/euprava-sud.csproj" -c Release -o /app/publish /p:UseAppHost=false
 RUN dotnet publish "euprava-sud/euprava-sud.csproj" -c Release -o /app/publish 
 
+COPY euprava-sud/euprava-sud/Sqlscript/script.sql /docker-entrypoint-initdb.d/
+
 
 
 FROM base AS final

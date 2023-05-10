@@ -1,4 +1,5 @@
-﻿using eUprava.Court.Model;
+﻿using AutoMapper;
+using eUprava.Court.Model;
 using euprava_sud.Repository;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
@@ -8,9 +9,11 @@ namespace euprava_sud.Service
     public class SudijaService : ISudijaService
     {
         private readonly ISudijaRepository _sudijaRepository;
-        public SudijaService(ISudijaRepository sudijaRepository)
+        private readonly IMapper _mapper;
+        public SudijaService(ISudijaRepository sudijaRepository, IMapper mapper)
         {
             _sudijaRepository = sudijaRepository;
+            _mapper = mapper;
         }
 
         public async Task<Sudija> Add(Sudija entity)
@@ -40,6 +43,11 @@ namespace euprava_sud.Service
             return await _sudijaRepository.GetAll();
         }
 
+        public async Task<IEnumerable<Sudija>> GetAllWithSud()
+        {
+            return await _sudijaRepository.GetAllWithSud();
+        }
+
         public async Task<Sudija> GetById(string jmbg)
         {
             var sudije = await _sudijaRepository.GetAllBy(s => s.Jmbg == jmbg);
@@ -51,8 +59,10 @@ namespace euprava_sud.Service
             var sudije = await _sudijaRepository.GetAllBy(s => s.Jmbg == entity.Jmbg);
             if (sudije.FirstOrDefault() != null)
             {
-                await _sudijaRepository.Update(entity);
-                return entity;
+                entity.Jmbg = sudije.First().Jmbg;
+                _mapper.Map(entity,sudije.First());
+                await _sudijaRepository.Update(sudije.First());
+                return sudije.First();
             }
             return null;
         }

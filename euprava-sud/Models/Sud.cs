@@ -8,6 +8,7 @@ namespace eUprava.Court.Model
     {
         [Key]
         public Guid SudId { get; set; }
+        public string Naziv { get; set; }
         public List<Sudija>? Sudije { get; set; } = new List<Sudija>();
         public Opstina Opstina { get; set; }
         public Guid OpstinaId { get; set; }

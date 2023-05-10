@@ -47,7 +47,7 @@ namespace euprava_sud.Repository
         public async Task Update(T entity)
         {
             _table.Update(entity);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

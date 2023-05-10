@@ -41,6 +41,7 @@ namespace euprava_sud.Migrations
                 columns: table => new
                 {
                     SudId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OpstinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -97,7 +98,6 @@ namespace euprava_sud.Migrations
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     OpstinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Prekrsaj = table.Column<int>(type: "int", nullable: false),
-                    PrekrsajId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusPrekrsajnePrijave = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
