@@ -26,3 +26,5 @@ VALUES
 ('5235324235235', 'Ranko', 'Krivokapic', 'kriva123@example.com', '122-346-7122', 'Marsala Tita 62', 'CB258BF5-ACD8-4E14-83E2-08DB4FE55FCB', 'Sudija', '77858de2-6cb1-4952-9fd4-82d9a614c3eb'),
 ('2141241242144', 'Nebojsa', 'Popadic', 'popara123@example.com', '555-333-7222', 'Mike Antica 32', 'B31EFAEB-9FA9-4904-83E3-08DB4FE55FCB', 'Sudija', 'c50c5b8e-ae24-4225-9542-7772354f4991');
 
+INSERT INTO PrekrsajnePrijave (PrekrsajnaPrijavaId, Datum, Komentar, OptuzeniJmbg, PrijavljenoOdJmbg, SudijaJmbg, OpstinaId, Prekrsaj ,StatusPrekrsajnePrijave) VALUES 
+('5502a234-90cc-4a77-92c6-f11c4c4e8d42', '2022-09-15 14:30:00.000', 'This is a test comment.', '0101990123456', '0406999876543', '1234567890123', '6a299d90-9df6-4d6b-b0c4-70278783b48f', 0,2)

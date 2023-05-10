@@ -351,7 +351,7 @@ namespace euprava_sud.Migrations
                         .IsRequired();
 
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
-                        .WithMany()
+                        .WithMany("PrekrsajnePrijave")
                         .HasForeignKey("SudijaJmbg")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -442,6 +442,11 @@ namespace euprava_sud.Migrations
                     b.Navigation("Rocista");
 
                     b.Navigation("Sudije");
+                });
+
+            modelBuilder.Entity("eUprava.Court.Model.Sudija", b =>
+                {
+                    b.Navigation("PrekrsajnePrijave");
                 });
 #pragma warning restore 612, 618
         }

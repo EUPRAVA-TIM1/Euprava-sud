@@ -43,6 +43,11 @@ namespace euprava_sud.Service
             return await _sudijaRepository.GetAll();
         }
 
+        public async Task<IEnumerable<Sudija>> GetAllWithPrijave()
+        {
+            return await _sudijaRepository.GetAllWithPrekrsajnePrijave();
+        }
+
         public async Task<IEnumerable<Sudija>> GetAllWithSud()
         {
             return await _sudijaRepository.GetAllWithSud();
@@ -54,15 +59,28 @@ namespace euprava_sud.Service
             return sudije.FirstOrDefault();
         }
 
+        public async Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(string opstinaId)
+        {
+            var sudije = await _sudijaRepository.GetSudijaForPrekrsaj(opstinaId);
+            if (sudije.Any())
+                return sudije;
+            return await _sudijaRepository.GetAll();
+        }
+
+        public async Task<Sudija> GetSudijaWithPrijave(string jmbg)
+        {
+            return await _sudijaRepository.GetSudijaWithPrijave(jmbg);
+        }
+
         public async Task<Sudija> Update(Sudija entity)
         {
-            var sudije = await _sudijaRepository.GetAllBy(s => s.Jmbg == entity.Jmbg);
-            if (sudije.FirstOrDefault() != null)
+            var sudije = await _sudijaRepository.GetById(entity.Jmbg);
+            if (sudije != null)
             {
-                entity.Jmbg = sudije.First().Jmbg;
-                _mapper.Map(entity,sudije.First());
-                await _sudijaRepository.Update(sudije.First());
-                return sudije.First();
+                entity.Jmbg = sudije.Jmbg;
+                _mapper.Map(entity,sudije);
+                await _sudijaRepository.Update(sudije);
+                return sudije;
             }
             return null;
         }

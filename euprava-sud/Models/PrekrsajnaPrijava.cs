@@ -22,7 +22,7 @@ namespace eUprava.Court.Model
         public Sudija? Sudija { get; set; }
         
         [ForeignKey("Sudija")]
-        public string SudijaJmbg { get; set; }
+        public string? SudijaJmbg { get; set; }
 
         public Opstina? Opstina { get; set; }
         public Guid OpstinaId { get; set; }

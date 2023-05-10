@@ -96,11 +96,18 @@ namespace euprava_sud.Data
                 .HasForeignKey(p => p.PrijavljenoOdJmbg)
                 .OnDelete(DeleteBehavior.Restrict);*/
 
-            modelBuilder.Entity<PrekrsajnaPrijava>()
+            /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.Sudija)
-                .WithMany()
+                .WithMany(s => s.PrekrsajnePrijave)
                 .HasForeignKey(p => p.SudijaJmbg)
+                .OnDelete(DeleteBehavior.Restrict); */
+
+            modelBuilder.Entity<Sudija>()
+                .HasMany(s => s.PrekrsajnePrijave)
+                .WithOne(p => p.Sudija)
+                .HasForeignKey(sj => sj.SudijaJmbg)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.Opstina)
@@ -150,5 +157,6 @@ namespace euprava_sud.Data
 
             base.OnModelCreating(modelBuilder);
         }
+        
     }
 }

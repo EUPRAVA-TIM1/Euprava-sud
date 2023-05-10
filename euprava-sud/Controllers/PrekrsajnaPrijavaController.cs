@@ -11,9 +11,11 @@ namespace euprava_sud.Controllers
     public class PrekrsajnaPrijavaController : ControllerBase
     {
         private readonly IPrekrsajnaPrijavaService _prekrsajnaPrijavaService;
-        public PrekrsajnaPrijavaController(IPrekrsajnaPrijavaService prekrsajnaPrijavaService)
+        private readonly ISudijaService _sudijaService;
+        public PrekrsajnaPrijavaController(IPrekrsajnaPrijavaService prekrsajnaPrijavaService, ISudijaService sudijaService)
         {
             _prekrsajnaPrijavaService = prekrsajnaPrijavaService;
+            _sudijaService = sudijaService;
         }
 
         [HttpGet]
@@ -36,18 +38,28 @@ namespace euprava_sud.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] PrekrsajnaPrijava prekrsajnaPrijava)
         {
-            var retVal = await _prekrsajnaPrijavaService.Add(prekrsajnaPrijava);
-            if (retVal == null)
-                return BadRequest();
-            return Ok(retVal);
+            var sudije = await _sudijaService.GetSudijaForPrekrsaj(prekrsajnaPrijava.OpstinaId.ToString());
+            var sudija = sudije.FirstOrDefault();
+            if(sudija != null)
+            {
+                prekrsajnaPrijava.Sudija = sudija;
+                prekrsajnaPrijava.SudijaJmbg = sudija.Jmbg.ToString();
+                
+                var retVal = await _prekrsajnaPrijavaService.Add(prekrsajnaPrijava);
+                if (retVal == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(retVal);
+            }
+
+            return BadRequest();
         }
 
         [HttpPut]
         public async Task<ActionResult> Update([FromBody] PrekrsajnaPrijava prekrsajnaPrijava)
         {
-            Console.WriteLine("Update", prekrsajnaPrijava);
             var retVal = await _prekrsajnaPrijavaService.Update(prekrsajnaPrijava);
-            Console.WriteLine("Update done", prekrsajnaPrijava.ToString());
             
             if (retVal == null)
                 return BadRequest();

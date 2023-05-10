@@ -42,6 +42,12 @@ namespace euprava_sud.Service
             return await _sudRepository.GetById(guid);
         }
 
+        public async Task<IEnumerable<Sudija>> GetSudijeFromSud(Guid guid)
+        {
+            var sudije = await _sudRepository.GetAllSudijeFromSud(guid);
+            return sudije;
+        }
+
         public async Task<Sud> Update(Sud entity)
         {
             var sud = await _sudRepository.GetById(entity.SudId);

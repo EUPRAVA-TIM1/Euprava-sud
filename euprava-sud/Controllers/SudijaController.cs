@@ -26,13 +26,27 @@ namespace euprava_sud.Controllers
 
         [HttpGet("{jmbg}")]
         public async Task<ActionResult<Sudija>> GetByJmbg(string jmbg)
-        {
-            var sudija = await _sudijaService.GetById(jmbg);
-            if(sudija != null)
+        {            
+            var sudija = await _sudijaService.GetSudijaWithPrijave(jmbg);
+            if (sudija != null)
             {
                 return Ok(sudija);
             }
             return NotFound();
+        }
+
+        [HttpGet("prijave")]
+        public async Task<ActionResult<Sudija>> GetAllWithPrijave()
+        {
+            return Ok(await _sudijaService.GetAllWithPrijave());
+
+        }
+
+        [HttpGet("sortirani/{id}")]
+        public async Task<ActionResult<Sudija>> GetAllForPrekrsaj(string id)
+        {
+            return Ok(await _sudijaService.GetSudijaForPrekrsaj(id));
+
         }
 
         [HttpPost]
