@@ -2,6 +2,7 @@
 using euprava_sud.Data;
 using euprava_sud.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace euprava_sud.Repository
 {

@@ -95,7 +95,7 @@ namespace euprava_sud.Migrations
                     Komentar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PrijavljenoOdJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OpstinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Prekrsaj = table.Column<int>(type: "int", nullable: false),
                     StatusPrekrsajnePrijave = table.Column<int>(type: "int", nullable: false)
@@ -149,13 +149,25 @@ namespace euprava_sud.Migrations
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Naslov = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdvokatJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Predmeti", x => x.PredmetId);
+                    table.ForeignKey(
+                        name: "FK_Predmeti_Gradjani_AdvokatJmbg",
+                        column: x => x.AdvokatJmbg,
+                        principalTable: "Gradjani",
+                        principalColumn: "Jmbg");
+                    table.ForeignKey(
+                        name: "FK_Predmeti_Gradjani_SudijaJmbg",
+                        column: x => x.SudijaJmbg,
+                        principalTable: "Gradjani",
+                        principalColumn: "Jmbg");
                     table.ForeignKey(
                         name: "FK_Predmeti_PrekrsajnePrijave_PrekrsajnaPrijavaId",
                         column: x => x.PrekrsajnaPrijavaId,
@@ -169,8 +181,9 @@ namespace euprava_sud.Migrations
                 columns: table => new
                 {
                     RocisteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OdlukaSudije = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DatumRocista = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SudId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -275,9 +288,19 @@ namespace euprava_sud.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Predmeti_AdvokatJmbg",
+                table: "Predmeti",
+                column: "AdvokatJmbg");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Predmeti_PrekrsajnaPrijavaId",
                 table: "Predmeti",
                 column: "PrekrsajnaPrijavaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Predmeti_SudijaJmbg",
+                table: "Predmeti",
+                column: "SudijaJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrekrsajnePrijave_OpstinaId",

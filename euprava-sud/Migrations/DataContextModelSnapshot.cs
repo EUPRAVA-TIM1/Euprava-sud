@@ -126,8 +126,7 @@ namespace euprava_sud.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AdvokatJmbg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
@@ -140,15 +139,26 @@ namespace euprava_sud.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OptuzeniJmbg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("PrekrsajnaPrijavaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("SudijaJmbg")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("PredmetId");
 
+                    b.HasIndex("AdvokatJmbg");
+
                     b.HasIndex("PrekrsajnaPrijavaId");
+
+                    b.HasIndex("SudijaJmbg");
 
                     b.ToTable("Predmeti");
                 });
@@ -184,7 +194,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SudijaJmbg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PrekrsajnaPrijavaId");
@@ -202,13 +211,16 @@ namespace euprava_sud.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AdvokatJmbg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DatumRocista")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IshodRocista")
                         .HasColumnType("int");
 
-                    b.Property<string>("OdlukaSudije")
+                    b.Property<string>("OptuzeniJmbg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -333,13 +345,25 @@ namespace euprava_sud.Migrations
 
             modelBuilder.Entity("eUprava.Court.Model.Predmet", b =>
                 {
+                    b.HasOne("eUprava.Court.Model.Gradjanin", "Advokat")
+                        .WithMany()
+                        .HasForeignKey("AdvokatJmbg");
+
                     b.HasOne("eUprava.Court.Model.PrekrsajnaPrijava", "PrekrsajnaPrijava")
                         .WithMany()
                         .HasForeignKey("PrekrsajnaPrijavaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
+                        .WithMany()
+                        .HasForeignKey("SudijaJmbg");
+
+                    b.Navigation("Advokat");
+
                     b.Navigation("PrekrsajnaPrijava");
+
+                    b.Navigation("Sudija");
                 });
 
             modelBuilder.Entity("eUprava.Court.Model.PrekrsajnaPrijava", b =>
@@ -353,8 +377,7 @@ namespace euprava_sud.Migrations
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
                         .WithMany("PrekrsajnePrijave")
                         .HasForeignKey("SudijaJmbg")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Opstina");
 

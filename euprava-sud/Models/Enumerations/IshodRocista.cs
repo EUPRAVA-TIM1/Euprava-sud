@@ -4,6 +4,7 @@
     {
         ZAKAZANO,
         ODLOZENO,
-        ZAVRSENO
+        ZAVRSENO,
+        ARHIVA
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eUprava.Court.Model;
+using eUprava.Court.Model.Enumerations;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
 
@@ -16,6 +17,9 @@ namespace euprava_sud.Service
         }
         public async Task<Predmet> Add(Predmet entity)
         {
+            var isValid = await _predmetRepository.GetAllBy(p => p.PrekrsajnaPrijavaId == entity.PrekrsajnaPrijavaId && p.Status == StatusPredmeta.OTVOREN);
+            if (isValid.Any())
+                return null;
             return await _predmetRepository.Insert(entity);
         }
 
@@ -33,6 +37,11 @@ namespace euprava_sud.Service
         public async Task<IEnumerable<Predmet>> GetAll()
         {
             return await _predmetRepository.GetAll();
+        }
+
+        public async Task<IEnumerable<Predmet>> GetAllBySudija(string sudijaJmbg)
+        {
+            return await _predmetRepository.GetAllBy(p => p.SudijaJmbg == sudijaJmbg);
         }
 
         public async Task<Predmet> GetById(Guid guid)

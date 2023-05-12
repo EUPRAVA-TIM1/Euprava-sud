@@ -14,13 +14,13 @@ namespace euprava_sud.Model
 
         public string Resenje { get; set; }
        
-        public Sudija Sudija { get; set; }
+        public Sudija? Sudija { get; set; }
         
         [ForeignKey("Sudija")]
         public string SudijaJmbg { get; set; }
-        public Rociste Rociste { get; set; }
+        public Rociste? Rociste { get; set; }
         public Guid RocisteId { get; set; }
-        public Predmet Predmet { get; set; }
+        public Predmet? Predmet { get; set; }
         public Guid PredmetId { get; set; }
     }
 }

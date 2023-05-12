@@ -4,6 +4,7 @@
     {
         AKTIVAN,
         PRIHVACEN,
-        ODBIJEN
+        ODBIJEN,
+        ARHIVA
     }
 }

@@ -11,5 +11,15 @@ namespace euprava_sud.Repository
         {
             _context = context;
         }
+
+        public async Task<IEnumerable<Rociste>> GetAllByGradjanin(string jmbg)
+        {
+            return _context.Rocista.Where(r => r.OptuzeniJmbg == jmbg).OrderBy(r => r.DatumRocista);
+        }
+
+        public async Task<IEnumerable<Rociste>> GetAllBySudija(string jmbg)
+        {
+            return _context.Rocista.Where(r => r.SudijaJmbg == jmbg && r.IshodRocista != eUprava.Court.Model.Enumerations.IshodRocista.ARHIVA).OrderBy(r => r.DatumRocista);
+        }
     }
 }

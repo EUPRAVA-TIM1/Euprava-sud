@@ -6,6 +6,7 @@ namespace euprava_sud.Service.Interfaces
     {
         Task<IEnumerable<PrekrsajnaPrijava>> GetAll();
         Task<IEnumerable<PrekrsajnaPrijava>> GetAllDoc();
+        Task<IEnumerable<PrekrsajnaPrijava>> GetAllBySudija(string jmbg);
         Task<PrekrsajnaPrijava> GetById(Guid guid);
         Task<PrekrsajnaPrijava> Add(PrekrsajnaPrijava entity);
         Task<PrekrsajnaPrijava> Update(PrekrsajnaPrijava entity);

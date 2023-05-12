@@ -37,6 +37,11 @@ namespace euprava_sud.Service
             return await _prekrsajnaPrijavaRepository.GetAll();
         }
 
+        public async Task<IEnumerable<PrekrsajnaPrijava>> GetAllBySudija(string jmbg)
+        {
+            return await _prekrsajnaPrijavaRepository.GetAllBy(p => p.SudijaJmbg == jmbg);
+        }
+
         public async Task<IEnumerable<PrekrsajnaPrijava>> GetAllDoc()
         {
             return await _prekrsajnaPrijavaRepository.GetAllDoc();

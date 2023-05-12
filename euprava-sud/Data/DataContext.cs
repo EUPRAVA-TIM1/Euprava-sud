@@ -153,6 +153,9 @@ namespace euprava_sud.Data
                 .WithMany()
                 .HasForeignKey(p => p.PrekrsajnaPrijavaId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Predmet>()
+                .Property(p => p.AdvokatJmbg)
+                .IsRequired(false);
 
 
             base.OnModelCreating(modelBuilder);

@@ -34,6 +34,13 @@ namespace euprava_sud.Controllers
             }
             return NotFound();
         }
+        [HttpGet("sudija/{jmbg}")]
+        public async Task<ActionResult<PrekrsajnaPrijava>> GetBySudija(string jmbg)
+        {
+            var prijave = await _prekrsajnaPrijavaService.GetAllBySudija(jmbg);
+            return Ok(prijave);
+            
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] PrekrsajnaPrijava prekrsajnaPrijava)

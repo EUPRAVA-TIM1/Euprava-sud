@@ -12,13 +12,8 @@ namespace eUprava.Court.Model
         public Guid PrekrsajnaPrijavaId { get; set; }
         public DateTime Datum { get; set; }
         public string Komentar { get; set; }
-        /*public Gradjanin Optuzeni { get; set; }
-        [ForeignKey("Optuzeni")]*/
         public string OptuzeniJmbg { get; set; }
-        /*public Gradjanin PrijavljenoOd { get; set; }
-        [ForeignKey("PrijavljenoOd")]*/
         public string PrijavljenoOdJmbg { get; set; }
-        /*public List<Gradjanin> Svedoci { get; set; } = new List<Gradjanin>();*/
         public Sudija? Sudija { get; set; }
         
         [ForeignKey("Sudija")]

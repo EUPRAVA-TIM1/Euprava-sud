@@ -14,7 +14,6 @@ namespace eUprava.Court.Model
 
         public Guid OpstinaId { get; set; }
         public Opstina Opstina { get; set; }
-
         public override string ToString()
         {
             return base.ToString();
