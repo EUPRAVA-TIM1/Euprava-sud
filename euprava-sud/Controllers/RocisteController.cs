@@ -40,6 +40,12 @@ namespace euprava_sud.Controllers
             return Ok(await _rocisteService.GetAllByGradjanin(jmbg));
         }
 
+        [HttpGet("advokat/{jmbg}")]
+        public async Task<ActionResult<IEnumerable<Rociste>>> GetAllByAdvokat(string jmbg)
+        {
+            return Ok(await _rocisteService.GetAllByAdvokat(jmbg));
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Rociste rociste)
         {
@@ -54,6 +60,9 @@ namespace euprava_sud.Controllers
             rociste.SudijaJmbg = sudija.Jmbg;
             rociste.Sud = sud;
             rociste.SudId = sud.SudId;
+            if(predmet.AdvokatJmbg != null)
+                rociste.AdvokatJmbg = predmet.AdvokatJmbg;
+            
 
             var retVal = await _rocisteService.Add(rociste);
             if(retVal != null)

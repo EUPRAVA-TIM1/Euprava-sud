@@ -7,6 +7,7 @@ namespace euprava_sud.Service.Interfaces
         Task<IEnumerable<Rociste>> GetAll();
         Task<IEnumerable<Rociste>> GetAllBySudija(string jmbg);
         Task<IEnumerable<Rociste>> GetAllByGradjanin(string jmbg);
+        Task<IEnumerable<Rociste>> GetAllByAdvokat(string jmbg);
         Task<Rociste> GetById(Guid guid);
         Task<Rociste> Add(Rociste entity);
         Task<Rociste> Update(Rociste entity);

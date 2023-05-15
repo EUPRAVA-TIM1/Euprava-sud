@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eUprava.Court.Model
 {
@@ -11,8 +12,9 @@ namespace eUprava.Court.Model
         public string Mail { get; set; }
         public string Broj { get; set; }
         public string Adresa { get; set; }
-
+        [ForeignKey("Opstina")]
         public Guid OpstinaId { get; set; }
+
         public Opstina Opstina { get; set; }
         public override string ToString()
         {

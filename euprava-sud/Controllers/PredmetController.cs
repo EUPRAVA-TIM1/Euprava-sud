@@ -31,7 +31,7 @@ namespace euprava_sud.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Predmet>> GetById(string id)
         {
-            var predmet = await _predmetService.GetById(Guid.Parse(id));
+            var predmet = await _predmetService.GetWithPrekrsajnaPrijava(Guid.Parse(id));
             if (predmet != null)
             {
                 return Ok(predmet);

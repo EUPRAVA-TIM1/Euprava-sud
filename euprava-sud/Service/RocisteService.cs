@@ -42,6 +42,11 @@ namespace euprava_sud.Service
             return await _rocisteRepository.GetAll();
         }
 
+        public async Task<IEnumerable<Rociste>> GetAllByAdvokat(string jmbg)
+        {
+            return await _rocisteRepository.GetAllByAdvokat(jmbg);
+        }
+
         public async Task<IEnumerable<Rociste>> GetAllByGradjanin(string jmbg)
         {
             return await _rocisteRepository.GetAllByGradjanin(jmbg);
@@ -60,16 +65,15 @@ namespace euprava_sud.Service
         public async Task<Rociste> Update(Rociste entity)
         {
             var rociste = await _rocisteRepository.GetById(entity.RocisteId);
-            if (rociste != null && rociste.DatumRocista > DateTime.Now.AddDays(-7)) //check days parameter
-            {
-                entity.RocisteId = rociste.RocisteId;
-                entity.PredmetId = rociste.PredmetId;
-                entity.SudijaJmbg = rociste.SudijaJmbg;
-                entity.SudId = rociste.SudId;
-                _mapper.Map(entity, rociste);
-                await _rocisteRepository.Update(rociste);
-                return rociste;
-            }
+            
+            entity.RocisteId = rociste.RocisteId;
+            entity.PredmetId = rociste.PredmetId;
+            entity.SudijaJmbg = rociste.SudijaJmbg;
+            entity.SudId = rociste.SudId;
+            _mapper.Map(entity, rociste);
+            await _rocisteRepository.Update(rociste);
+            return rociste;
+            
             return null;
         }
     }

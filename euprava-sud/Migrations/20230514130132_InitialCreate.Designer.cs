@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230512210605_InitialCreate")]
+    [Migration("20230514130132_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -143,7 +143,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OptuzeniJmbg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PrekrsajnaPrijavaId")
@@ -224,7 +223,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("OptuzeniJmbg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PredmetId")
@@ -234,7 +232,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SudijaJmbg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RocisteId");
@@ -293,8 +290,10 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("RocisteId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("SudijaJmbg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OdlukaSudijeId");
@@ -404,8 +403,7 @@ namespace euprava_sud.Migrations
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
                         .WithMany()
                         .HasForeignKey("SudijaJmbg")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Predmet");
 
@@ -442,8 +440,7 @@ namespace euprava_sud.Migrations
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
                         .WithMany()
                         .HasForeignKey("SudijaJmbg")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Predmet");
 

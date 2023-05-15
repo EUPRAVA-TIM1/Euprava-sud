@@ -27,6 +27,7 @@ namespace eUprava.Court.Model
         public StatusPredmeta Status { get; set; }
 
         public PrekrsajnaPrijava? PrekrsajnaPrijava { get; set; }
+        [ForeignKey("PrekrsajnaPrijava")]
         public Guid PrekrsajnaPrijavaId { get; set; }
     }
 }

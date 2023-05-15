@@ -49,6 +49,11 @@ namespace euprava_sud.Service
             return await _predmetRepository.GetById(guid);
         }
 
+        public async Task<Predmet> GetWithPrekrsajnaPrijava(Guid guid)
+        {
+            return await _predmetRepository.GetWithPrekrsajnaPrijava(guid);
+        }
+
         public async Task<Predmet> Update(Predmet entity)
         {
             var predmet = await _predmetRepository.GetById(entity.PredmetId);

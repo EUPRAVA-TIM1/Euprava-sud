@@ -14,6 +14,8 @@ namespace eUprava.Court.Model
         public string? OptuzeniJmbg { get; set; }
         public string? AdvokatJmbg { get; set; }
         public Predmet? Predmet { get; set; }
+        
+        [ForeignKey("Predmet")]
         public Guid PredmetId { get; set; }
         public Sudija? Sudija { get; set; }
         [ForeignKey("Sudija")]

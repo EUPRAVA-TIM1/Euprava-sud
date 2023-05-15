@@ -150,7 +150,7 @@ namespace euprava_sud.Migrations
                     Naslov = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdvokatJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -182,10 +182,10 @@ namespace euprava_sud.Migrations
                 {
                     RocisteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DatumRocista = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SudId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IshodRocista = table.Column<int>(type: "int", nullable: false)
                 },
@@ -218,9 +218,10 @@ namespace euprava_sud.Migrations
                     OduzimanjeBodova = table.Column<int>(type: "int", nullable: false),
                     NovcanaKazna = table.Column<double>(type: "float", nullable: false),
                     Resenje = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RocisteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
