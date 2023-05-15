@@ -76,6 +76,20 @@ namespace euprava_sud.Service
             return await _odlukaSudijeRepository.GetAll();
         }
 
+        public async Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string sudijaJmbg)
+        {
+            return await _odlukaSudijeRepository.GetAllBy(o => o.SudijaJmbg == sudijaJmbg);
+        }
+
+        public async Task<IEnumerable<OdlukaSudije>> GetAllForSudija(string sudijaJmbg, int? prekrsajnaPrijava)
+        {
+            if (prekrsajnaPrijava != null)
+                return await _odlukaSudijeRepository.GetAllForSudija(sudijaJmbg, prekrsajnaPrijava);
+            else
+                return await _odlukaSudijeRepository.GetAllBy(o => o.SudijaJmbg == sudijaJmbg);
+
+        }
+
         public async Task<OdlukaSudije> GetById(Guid guid)
         {
             return await _odlukaSudijeRepository.GetById(guid);

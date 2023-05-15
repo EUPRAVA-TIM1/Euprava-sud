@@ -221,7 +221,8 @@ namespace euprava_sud.Migrations
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RocisteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Datum = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -29,5 +29,7 @@ namespace euprava_sud.Model
 
         [DefaultValue(StatusPrekrsajnePrijave.AKTIVAN)]
         public StatusPrekrsajnePrijave Status { get; set; }
+
+        public DateTime Datum { get; set; } = DateTime.Now;
     }
 }

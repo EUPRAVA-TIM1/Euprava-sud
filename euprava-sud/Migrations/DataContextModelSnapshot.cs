@@ -268,6 +268,9 @@ namespace euprava_sud.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("Datum")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("NovcanaKazna")
                         .HasColumnType("float");
 

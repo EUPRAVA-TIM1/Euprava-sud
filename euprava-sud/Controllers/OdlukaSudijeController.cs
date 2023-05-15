@@ -40,7 +40,18 @@ namespace euprava_sud.Controllers
                 return Ok(odluka);
             }
             return BadRequest();
-            
+        }
+
+        [HttpGet("sudija/{jmbg}")]
+        public async Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string jmbg)
+        {
+            return await _odlukaSudijeService.GetAllBySudija(jmbg);
+        }
+
+        [HttpGet("search/{jmbg}/prekrsaj/{prekrsajId?}")]
+        public async Task<IEnumerable<OdlukaSudije>> GetAllForSudija(string jmbg, int? prekrsajId)
+        {
+            return await _odlukaSudijeService.GetAllForSudija(jmbg, prekrsajId);
         }
     }
 }

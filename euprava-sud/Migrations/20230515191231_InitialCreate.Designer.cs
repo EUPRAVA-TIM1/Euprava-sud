@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230514130132_InitialCreate")]
+    [Migration("20230515191231_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -270,6 +270,9 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("OdlukaSudijeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Datum")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("NovcanaKazna")
                         .HasColumnType("float");
