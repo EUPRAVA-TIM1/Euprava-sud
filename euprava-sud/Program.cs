@@ -5,8 +5,29 @@ using euprava_sud.Service;
 using euprava_sud.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: false)
+        .Build();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+
+builder.Services.AddAuthorization();
 
 IConfigurationRoot configuration = new ConfigurationBuilder()
            .SetBasePath(Directory.GetCurrentDirectory())
@@ -36,6 +57,7 @@ builder.Services.AddScoped<IRocisteRepository, RocisteRepository>();
 builder.Services.AddScoped<ISudijaRepository, SudijaRepository>();
 builder.Services.AddScoped<ISudRepository, SudRepository>();
 /*builder.Services.AddScoped<IOpstinaRepository, GenericRepository>();*/
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IOpstinaService, OpstinaService>();
 builder.Services.AddScoped<IDokumentService, DokumentService>();
 builder.Services.AddScoped<IGradjaninService, GradjaninService>();
@@ -49,8 +71,10 @@ builder.Services.AddScoped<ISudService, SudService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
-/*app.UseAuthorization();*/
 
 app.MapControllers();
 

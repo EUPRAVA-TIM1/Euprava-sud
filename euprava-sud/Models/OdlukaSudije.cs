@@ -20,6 +20,8 @@ namespace euprava_sud.Model
         
         [ForeignKey("Sudija")]
         public string? SudijaJmbg { get; set; }
+        public string? OptuzeniJmbg { get; set; }
+        public string? AdvokatJmbg { get; set; }
         public Rociste? Rociste { get; set; }
         [ForeignKey("Rociste")]
         public Guid RocisteId { get; set; }

@@ -3,6 +3,8 @@ using eUprava.Court.Model;
 using euprava_sud.Repository;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
+using MySqlX.XDevAPI.Common;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace euprava_sud.Service
 {
@@ -70,6 +72,19 @@ namespace euprava_sud.Service
         public async Task<Sudija> GetSudijaWithPrijave(string jmbg)
         {
             return await _sudijaRepository.GetSudijaWithPrijave(jmbg);
+        }
+
+        public async Task<Sudija> Login(string jmbg, string password)
+        {
+            var sudija = await _sudijaRepository.GetById(jmbg);
+            if(sudija != null)
+            {
+                var verified = BCrypt.Net.BCrypt.Verify(password, sudija.Password);
+                if (verified)
+                    return sudija;
+                return null;
+            }
+            return null;
         }
 
         public async Task<Sudija> Update(Sudija entity)

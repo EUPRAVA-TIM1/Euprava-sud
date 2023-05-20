@@ -123,3 +123,5 @@ C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projek
 C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projekat\euprava-sud\euprava-sud\bin\Debug\net6.0\runtimes\win-x64\native\krb5_64.dll
 C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projekat\euprava-sud\euprava-sud\bin\Debug\net6.0\runtimes\win-x64\native\krbcc64.dll
 C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projekat\euprava-sud\euprava-sud\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projekat\euprava-sud\euprava-sud\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Users\HP\Documents\Predavanja\Semestar 6\Tehnologije i sistemi eUprave\Projekat\euprava-sud\euprava-sud\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

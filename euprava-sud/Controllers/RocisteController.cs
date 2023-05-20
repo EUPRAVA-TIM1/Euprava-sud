@@ -1,10 +1,12 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RocisteController : ControllerBase
@@ -23,6 +25,7 @@ namespace euprava_sud.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Rociste>>> GetAll()
         {
             return Ok(await _rocisteService.GetAll());
@@ -75,14 +78,6 @@ namespace euprava_sud.Controllers
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] Rociste rociste)
         {
-            /*var predmet = await _predmetService.GetById(rociste.PredmetId);
-            var sudija = await _sudijaService.GetById(rociste.SudijaJmbg);
-            var sud = await _sudService.GetById(rociste.SudId);*/
-
-            /*rociste.Predmet = predmet;
-            rociste.Sudija = sudija;
-            rociste.Sud = sud;*/
-
             var retVal = await _rocisteService.Update(rociste);
             if (retVal != null)
             {

@@ -1,11 +1,13 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Service;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PrekrsajnaPrijavaController : ControllerBase
@@ -18,7 +20,9 @@ namespace euprava_sud.Controllers
             _sudijaService = sudijaService;
         }
 
+        
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PrekrsajnaPrijava>>> GetAll()
         {
             return Ok(_prekrsajnaPrijavaService.GetAllDoc());
@@ -43,6 +47,7 @@ namespace euprava_sud.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> Create([FromBody] PrekrsajnaPrijava prekrsajnaPrijava)
         {
             var sudije = await _sudijaService.GetSudijaForPrekrsaj(prekrsajnaPrijava.OpstinaId.ToString());

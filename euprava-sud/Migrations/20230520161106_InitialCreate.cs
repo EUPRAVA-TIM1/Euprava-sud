@@ -60,6 +60,7 @@ namespace euprava_sud.Migrations
                 columns: table => new
                 {
                     Jmbg = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Prezime = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -219,6 +220,8 @@ namespace euprava_sud.Migrations
                     NovcanaKazna = table.Column<double>(type: "float", nullable: false),
                     Resenje = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RocisteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PredmetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),

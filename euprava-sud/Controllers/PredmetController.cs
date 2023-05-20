@@ -1,10 +1,13 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PredmetController : ControllerBase
@@ -54,7 +57,9 @@ namespace euprava_sud.Controllers
         public async Task<ActionResult> Post([FromBody] Predmet predmet)
         {
             var prekrsajnaPrijava = await _prekrsajnaPrijavaService.GetById(predmet.PrekrsajnaPrijavaId);
-            var sudija = await _sudijaService.GetById(prekrsajnaPrijava.SudijaJmbg);
+            var sudijaJmbg = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            /*var sudija = await _sudijaService.GetById(prekrsajnaPrijava.SudijaJmbg);*/
+            var sudija = await _sudijaService.GetById(sudijaJmbg);
 
             predmet.Sudija = sudija;
             predmet.SudijaJmbg = prekrsajnaPrijava.SudijaJmbg;

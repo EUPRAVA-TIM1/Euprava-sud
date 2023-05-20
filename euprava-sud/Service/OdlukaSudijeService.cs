@@ -41,6 +41,8 @@ namespace euprava_sud.Service
             entity.Rociste = rociste;
             entity.Sudija = sudija;
             entity.SudijaJmbg = sudija.Jmbg;
+            entity.AdvokatJmbg = rociste.AdvokatJmbg;
+            entity.OptuzeniJmbg = rociste.OptuzeniJmbg;
             entity.Predmet = predmet;
             entity.PredmetId = predmet.PredmetId;
 
@@ -74,6 +76,16 @@ namespace euprava_sud.Service
         public async Task<IEnumerable<OdlukaSudije>> GetAll()
         {
             return await _odlukaSudijeRepository.GetAll();
+        }
+
+        public async Task<IEnumerable<OdlukaSudije>> GetAllByAdvokat(string advokatJmbg)
+        {
+            return await _odlukaSudijeRepository.GetAllBy(o => o.AdvokatJmbg == advokatJmbg);
+        }
+
+        public async Task<IEnumerable<OdlukaSudije>> GetAllByOptuzeni(string optuzeniJmbg)
+        {
+            return await _odlukaSudijeRepository.GetAllBy(o => o.OptuzeniJmbg == optuzeniJmbg);
         }
 
         public async Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string sudijaJmbg)

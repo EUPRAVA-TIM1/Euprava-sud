@@ -7,6 +7,8 @@ namespace euprava_sud.Service.Interfaces
     {
         Task<IEnumerable<OdlukaSudije>> GetAll();
         Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string sudijaJmbg);
+        Task<IEnumerable<OdlukaSudije>> GetAllByAdvokat(string advokatJmbg);
+        Task<IEnumerable<OdlukaSudije>> GetAllByOptuzeni(string optuzeniJmbg);
         Task<IEnumerable<OdlukaSudije>> GetAllForSudija(string sudijaJmbg, int? prekrsajnaPrijava);
         Task<OdlukaSudije> GetById(Guid guid);
         Task<OdlukaSudije> Add(OdlukaSudije entity);

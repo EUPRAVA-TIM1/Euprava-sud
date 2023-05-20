@@ -10,6 +10,7 @@ namespace euprava_sud.Service.Interfaces
         Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(string opstinaId);
         Task<Sudija> GetSudijaWithPrijave(string jmbg);
         Task<Sudija> GetById(string jmbg);
+        Task<Sudija> Login(string jmbg, string password);
         Task<Sudija> Add(Sudija entity);
         Task<Sudija> Update(Sudija entity);
         Task<Sudija> Delete(string jmbg);

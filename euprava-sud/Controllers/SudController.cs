@@ -1,10 +1,12 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SudController : ControllerBase
@@ -17,12 +19,14 @@ namespace euprava_sud.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Sud>>> GetAll()
         {
             return Ok(await _sudService.GetAll());
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Sud>> GetById(string id)
         {
             var sud = await _sudService.GetById(Guid.Parse(id));
@@ -33,6 +37,7 @@ namespace euprava_sud.Controllers
             return NotFound();
         }
         [HttpGet("sudije/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Sud>>> GetAllSudije(string id)
         {
             return Ok(await _sudService.GetSudijeFromSud(Guid.Parse(id)));

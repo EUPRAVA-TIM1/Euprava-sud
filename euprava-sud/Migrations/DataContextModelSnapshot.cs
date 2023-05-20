@@ -80,6 +80,10 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("OpstinaId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Prezime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -268,6 +272,9 @@ namespace euprava_sud.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AdvokatJmbg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
@@ -279,6 +286,9 @@ namespace euprava_sud.Migrations
 
                     b.Property<bool>("OduzimanjeVozacke")
                         .HasColumnType("bit");
+
+                    b.Property<string>("OptuzeniJmbg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PredmetId")
                         .HasColumnType("uniqueidentifier");

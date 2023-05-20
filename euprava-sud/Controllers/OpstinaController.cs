@@ -1,11 +1,13 @@
 ﻿using eUprava.Court.Model;
 using euprava_sud.Data;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OpstinaController : ControllerBase
@@ -17,11 +19,13 @@ namespace euprava_sud.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Opstina>>> GetOpstine()
         {
             return Ok(_opstinaService.GetAll());
         }
         [HttpGet("ptt/{ptt}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Opstina>> GetByPTT(int ptt)
         {
             
@@ -32,6 +36,7 @@ namespace euprava_sud.Controllers
             return Ok(opstina);
         }
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Opstina>> GetById(string id)
         {
 

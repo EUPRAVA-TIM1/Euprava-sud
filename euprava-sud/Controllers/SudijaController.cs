@@ -1,30 +1,37 @@
 ﻿using eUprava.Court.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Service;
 using euprava_sud.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace euprava_sud.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SudijaController : ControllerBase
     {
 
         private readonly ISudijaService _sudijaService;
-        public SudijaController(ISudijaService sudijaService)
+        private readonly IAuthenticateService _authenticateService;
+        public SudijaController(ISudijaService sudijaService, IAuthenticateService authenticateService)
         {
             _sudijaService = sudijaService;
+            _authenticateService = authenticateService;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Sudija>>> GetAll()
         {
             return Ok(await _sudijaService.GetAll());
         }
 
         [HttpGet("{jmbg}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Sudija>> GetByJmbg(string jmbg)
         {            
             var sudija = await _sudijaService.GetSudijaWithPrijave(jmbg);
@@ -40,6 +47,20 @@ namespace euprava_sud.Controllers
         {
             return Ok(await _sudijaService.GetAllWithPrijave());
 
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
+        {
+            var user = await _authenticateService.Authenticate(userLogin.Jmbg, userLogin.Password);
+            if(user != null)
+            {
+                var token = await _authenticateService.GenerateToken(user);
+                var result = new { token = token, ime = user.Ime, jmbg = user.Jmbg };
+                return Ok(result);
+            }
+            return NotFound("User not found");
         }
 
         [HttpGet("sortirani/{id}")]
