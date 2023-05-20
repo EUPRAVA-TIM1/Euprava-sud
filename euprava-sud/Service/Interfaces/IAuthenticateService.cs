@@ -5,8 +5,8 @@ namespace euprava_sud.Service.Interfaces
 {
     public interface IAuthenticateService
     {
-        Task<Sudija> Authenticate(string jmbg, string password);
-        Task<string> GenerateToken(Sudija sudija);
+        Task<Sudija> Authenticate(string jmbg);
+        Task<string> GenerateToken(string jmbg);
         Task<string> GetCurrentUser(IEnumerable<Claim> claims);
     }
 }

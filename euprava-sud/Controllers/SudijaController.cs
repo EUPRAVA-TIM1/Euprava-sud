@@ -53,10 +53,10 @@ namespace euprava_sud.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
         {
-            var user = await _authenticateService.Authenticate(userLogin.Jmbg, userLogin.Password);
+            var user = await _authenticateService.Authenticate(userLogin.Jmbg);
             if(user != null)
             {
-                var token = await _authenticateService.GenerateToken(user);
+                var token = await _authenticateService.GenerateToken(user.Jmbg);
                 var result = new { token = token, ime = user.Ime, jmbg = user.Jmbg };
                 return Ok(result);
             }

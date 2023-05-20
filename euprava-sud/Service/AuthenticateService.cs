@@ -16,9 +16,9 @@ namespace euprava_sud.Service
             _sudijaService = sudijaService;
             _configuration = configuration;
         }
-        public Task<Sudija> Authenticate(string jmbg, string password)
+        public Task<Sudija> Authenticate(string jmbg)
         {
-            var user = _sudijaService.Login(jmbg, password);
+            var user = _sudijaService.GetById(jmbg);
             if(user != null)
             {
                 return user;
@@ -26,15 +26,23 @@ namespace euprava_sud.Service
             return null;
         }
 
-        public async Task<string> GenerateToken(Sudija sudija)
+        public async Task<string> GenerateToken(string jmbg)
         {
+            /*var user = await _sudijaService.GetById(jmbg);*/
+            var user = await _sudijaService.GetById(jmbg);
+            bool isSudija = false;
+            if (user != null)
+                isSudija = true;
+
+            /////
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, sudija.Jmbg),
-                new Claim(ClaimTypes.Role, "Sudija")
+                new Claim("Jmbg", jmbg),
+                new Claim("isSudija", isSudija.ToString()),
+                isSudija ? new Claim("Role", "Sudija") : new Claim("Role", "Gradjanin")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

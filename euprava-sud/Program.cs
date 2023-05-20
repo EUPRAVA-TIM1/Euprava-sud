@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using euprava_sud.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = new ConfigurationBuilder()
@@ -68,9 +69,12 @@ builder.Services.AddScoped<IRocisteService, RocisteService>();
 builder.Services.AddScoped<ISudijaService, SudijaService>();
 builder.Services.AddScoped<ISudService, SudService>();
 
+builder.Services.AddScoped<SSOJwtMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<SSOJwtMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
