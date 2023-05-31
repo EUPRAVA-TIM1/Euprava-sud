@@ -63,10 +63,10 @@ namespace euprava_sud.Controllers
             return NotFound("User not found");
         }
 
-        [HttpGet("sortirani/{id}")]
-        public async Task<ActionResult<Sudija>> GetAllForPrekrsaj(string id)
+        [HttpGet("sortirani/{ptt}")]
+        public async Task<ActionResult<Sudija>> GetAllForPrekrsaj(int ptt)
         {
-            return Ok(await _sudijaService.GetSudijaForPrekrsaj(id));
+            return Ok(await _sudijaService.GetSudijaForPrekrsaj(ptt));
 
         }
 

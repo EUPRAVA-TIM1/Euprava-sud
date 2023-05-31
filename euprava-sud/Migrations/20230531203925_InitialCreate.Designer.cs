@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230531161354_InitialCreate")]
+    [Migration("20230531203925_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -176,6 +176,17 @@ namespace euprava_sud.Migrations
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JMBGOptuzenog")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JMBGSluzbenika")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Komentar")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,16 +194,11 @@ namespace euprava_sud.Migrations
                     b.Property<Guid>("OpstinaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("OptuzeniJmbg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("OpstinaPTT")
+                        .HasColumnType("int");
 
                     b.Property<int>("Prekrsaj")
                         .HasColumnType("int");
-
-                    b.Property<string>("PrijavljenoOdJmbg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StatusPrekrsajnePrijave")
                         .HasColumnType("int");

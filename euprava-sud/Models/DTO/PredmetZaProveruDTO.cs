@@ -14,9 +14,5 @@ namespace euprava_sud.Models.DTO
         public string? OptuzeniJmbg { get; set; }
         public StatusPredmeta Status { get; set; }
 
-        /*Datum:  time.Now(),
-		Naslov: "Prekoracenje brzine u zoni skole",
-		Opis:   "lorem ipsum neki opis nmg sad da se setim bolje",
-		Status: "U_PROCESU",*/
     }
 }

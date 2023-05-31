@@ -88,13 +88,13 @@ namespace euprava_sud.Data
             /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.Optuzeni)
                 .WithMany()
-                .HasForeignKey(p => p.OptuzeniJmbg)
+                .HasForeignKey(p => p.JMBGOptuzenog)
                 .OnDelete(DeleteBehavior.Restrict);*/
 
             /*modelBuilder.Entity<PrekrsajnaPrijava>()
                 .HasOne(p => p.PrijavljenoOd)
                 .WithMany()
-                .HasForeignKey(p => p.PrijavljenoOdJmbg)
+                .HasForeignKey(p => p.JMBGSluzbenika)
                 .OnDelete(DeleteBehavior.Restrict);*/
 
             /*modelBuilder.Entity<PrekrsajnaPrijava>()

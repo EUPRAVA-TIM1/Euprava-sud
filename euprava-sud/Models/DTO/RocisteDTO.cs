@@ -9,7 +9,7 @@ namespace euprava_sud.Models.DTO
     {
         public Guid RocisteId { get; set; }
         public DateTime DatumRocista { get; set; }
-        public string? OptuzeniJmbg { get; set; }
+        public string? JMBGOptuzenog { get; set; }
         public string? AdvokatJmbg { get; set; }
         public Predmet? Predmet { get; set; }
         public Sudija? Sudija { get; set; }

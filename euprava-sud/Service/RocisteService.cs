@@ -43,9 +43,10 @@ namespace euprava_sud.Service
             return await _rocisteRepository.GetAll();
         }
 
-        public async Task<IEnumerable<Rociste>> GetAllByAdvokat(string jmbg)
+        public async Task<IEnumerable<RocisteDTO>> GetAllByAdvokat(string jmbg)
         {
-            return await _rocisteRepository.GetAllByAdvokat(jmbg);
+            var rocista = await _rocisteRepository.GetAllByAdvokat(jmbg);
+            return _mapper.Map<IEnumerable<RocisteDTO>>(rocista);
         }
 
         public async Task<IEnumerable<RocisteDTO>> GetAllByGradjanin(string jmbg)
@@ -59,9 +60,10 @@ namespace euprava_sud.Service
             return await _rocisteRepository.GetAllBy(r => r.PredmetId == predmetId);
         }
 
-        public async Task<IEnumerable<Rociste>> GetAllBySudija(string jmbg)
+        public async Task<IEnumerable<RocisteDTO>> GetAllBySudija(string jmbg)
         {
-            return await _rocisteRepository.GetAllBySudija(jmbg);
+            var rocista = await _rocisteRepository.GetAllBySudija(jmbg);
+            return _mapper.Map<IEnumerable<RocisteDTO>>(rocista);
         }
 
         public async Task<Rociste> GetById(Guid guid)

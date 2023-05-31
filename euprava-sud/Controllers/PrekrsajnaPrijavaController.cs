@@ -50,8 +50,9 @@ namespace euprava_sud.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Create([FromBody] PrekrsajnaPrijava prekrsajnaPrijava)
         {
-            var sudije = await _sudijaService.GetSudijaForPrekrsaj(prekrsajnaPrijava.OpstinaId.ToString());
+            var sudije = await _sudijaService.GetSudijaForPrekrsaj(prekrsajnaPrijava.OpstinaPTT);
             var sudija = sudije.FirstOrDefault();
+            prekrsajnaPrijava.OpstinaId = sudija.OpstinaId;
             if(sudija != null)
             {
                 prekrsajnaPrijava.Sudija = sudija;

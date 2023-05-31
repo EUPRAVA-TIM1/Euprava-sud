@@ -11,10 +11,12 @@ namespace euprava_sud.Service
     public class SudijaService : ISudijaService
     {
         private readonly ISudijaRepository _sudijaRepository;
+        private readonly IOpstinaRepository _opstinaRepository;
         private readonly IMapper _mapper;
-        public SudijaService(ISudijaRepository sudijaRepository, IMapper mapper)
+        public SudijaService(ISudijaRepository sudijaRepository,IOpstinaRepository opstinaRepository ,IMapper mapper)
         {
             _sudijaRepository = sudijaRepository;
+            _opstinaRepository = opstinaRepository; 
             _mapper = mapper;
         }
 
@@ -61,9 +63,18 @@ namespace euprava_sud.Service
             return sudije.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(string opstinaId)
+        public async Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(int ptt)
         {
-            var sudije = await _sudijaRepository.GetSudijaForPrekrsaj(opstinaId);
+            var opstine = await _opstinaRepository.GetAllBy(o => o.PTT == ptt);
+            
+            if (!opstine.Any())
+            {
+                opstine = await _opstinaRepository.GetAll();
+            }
+
+            var opstina = opstine.FirstOrDefault();
+
+            var sudije = await _sudijaRepository.GetSudijaForPrekrsaj(opstina.OpstinaId.ToString());
             if (sudije.Any())
                 return sudije;
             return await _sudijaRepository.GetAll();

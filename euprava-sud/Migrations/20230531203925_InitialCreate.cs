@@ -94,9 +94,11 @@ namespace euprava_sud.Migrations
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Komentar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrijavljenoOdJmbg = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JMBGOptuzenog = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JMBGSluzbenika = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OpstinaPTT = table.Column<int>(type: "int", nullable: false),
                     OpstinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Prekrsaj = table.Column<int>(type: "int", nullable: false),
                     StatusPrekrsajnePrijave = table.Column<int>(type: "int", nullable: false)

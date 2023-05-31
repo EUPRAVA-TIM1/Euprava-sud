@@ -86,7 +86,7 @@ namespace euprava_sud.Controllers
 
             predmet.Sudija = sudija;
             predmet.SudijaJmbg = prekrsajnaPrijava.SudijaJmbg;
-            predmet.OptuzeniJmbg = prekrsajnaPrijava.OptuzeniJmbg;
+            predmet.OptuzeniJmbg = prekrsajnaPrijava.JMBGOptuzenog;
             predmet.PrekrsajnaPrijava = prekrsajnaPrijava;
             predmet.PrekrsajnaPrijavaId = prekrsajnaPrijava.PrekrsajnaPrijavaId;
 
