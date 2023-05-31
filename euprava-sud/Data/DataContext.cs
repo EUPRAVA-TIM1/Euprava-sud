@@ -18,11 +18,12 @@ namespace euprava_sud.Data
         public DbSet<Rociste> Rocista { get; set; }
         public DbSet<Sud> Sudovi { get; set; }
         public DbSet<Sudija> Sudije { get; set; }
-        public DataContext(DbContextOptions<DataContext> dbContextOptions):base(dbContextOptions) {
+        public DataContext(DbContextOptions<DataContext> dbContextOptions) : base(dbContextOptions)
+        {
             try
             {
                 var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-                if(databaseCreator != null)
+                if (databaseCreator != null)
                 {
                     if (!databaseCreator.CanConnect()) databaseCreator.Create();
                     if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
@@ -49,7 +50,7 @@ namespace euprava_sud.Data
 
             modelBuilder.Entity<Rociste>()
                 .HasOne(r => r.Sud)
-                .WithMany(s => s.Rocista)
+                .WithMany()
                 .HasForeignKey(r => r.SudId)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -160,6 +161,6 @@ namespace euprava_sud.Data
 
             base.OnModelCreating(modelBuilder);
         }
-        
+
     }
 }

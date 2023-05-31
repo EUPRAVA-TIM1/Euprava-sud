@@ -49,7 +49,7 @@ namespace euprava_sud.Service
 
         public async Task<PrekrsajnaPrijava> GetById(Guid guid)
         {
-            return await _prekrsajnaPrijavaRepository.GetById(guid);
+            return await _prekrsajnaPrijavaRepository.GetByIdWithDocuments(guid);
         }
 
         public async Task<PrekrsajnaPrijava> Update(PrekrsajnaPrijava entity)

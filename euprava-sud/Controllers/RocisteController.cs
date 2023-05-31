@@ -1,4 +1,5 @@
 ﻿using eUprava.Court.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +32,12 @@ namespace euprava_sud.Controllers
             return Ok(await _rocisteService.GetAll());
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Rociste>> GetById(string id)
+        {
+            return Ok(await _rocisteService.GetByIdFullInformation(Guid.Parse(id)));
+        }
+
         [HttpGet("sudija/{jmbg}")]
         public async Task<ActionResult<IEnumerable<Rociste>>> GetAllBySudija(string jmbg)
         {
@@ -38,7 +45,7 @@ namespace euprava_sud.Controllers
         }
 
         [HttpGet("gradjanin/{jmbg}")]
-        public async Task<ActionResult<IEnumerable<Rociste>>> GetAllByGradjanin(string jmbg)
+        public async Task<ActionResult<IEnumerable<RocisteDTO>>> GetAllByGradjanin(string jmbg)
         {
             return Ok(await _rocisteService.GetAllByGradjanin(jmbg));
         }
@@ -47,6 +54,12 @@ namespace euprava_sud.Controllers
         public async Task<ActionResult<IEnumerable<Rociste>>> GetAllByAdvokat(string jmbg)
         {
             return Ok(await _rocisteService.GetAllByAdvokat(jmbg));
+        }
+
+        [HttpGet("predmet/{predmetId}")]
+        public async Task<ActionResult<IEnumerable<Rociste>>> GetAllByPredmet(string predmetId)
+        {
+            return Ok(await _rocisteService.GetAllByPredmet(Guid.Parse(predmetId)));
         }
 
         [HttpPost]

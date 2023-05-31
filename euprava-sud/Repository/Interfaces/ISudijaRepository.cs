@@ -8,6 +8,6 @@ namespace euprava_sud.Repository.Interfaces
         Task<IEnumerable<Sudija>> GetAllWithSud();
         Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(string opstinaId);
         Task<IEnumerable<Sudija>> GetAllWithPrekrsajnePrijave();
-        Task<Sudija> GetSudijaWithPrijave(string jmbg);
+        Task<Sudija> GetSudijaWithSudAndOpstina(string jmbg);
     }
 }

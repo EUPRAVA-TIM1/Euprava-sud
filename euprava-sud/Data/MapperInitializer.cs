@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using eUprava.Court.Model;
 using euprava_sud.Model;
+using euprava_sud.Models.DTO;
+
 
 namespace euprava_sud.Data
 {
@@ -13,8 +15,10 @@ namespace euprava_sud.Data
             CreateMap<OdlukaSudije, OdlukaSudije>().ReverseMap();
             CreateMap<Opstina, Opstina>().ReverseMap();
             CreateMap<Predmet, Predmet>().ReverseMap();
+            CreateMap<Predmet, PredmetZaProveruDTO>().ReverseMap();
             CreateMap<PrekrsajnaPrijava, PrekrsajnaPrijava>().ReverseMap();
             CreateMap<Rociste, Rociste>().ReverseMap();
+            CreateMap<Rociste, RocisteDTO>().ReverseMap();
             CreateMap<Sud, Sud>().ReverseMap();
             CreateMap<Sudija, Sudija>().ReverseMap();
         }

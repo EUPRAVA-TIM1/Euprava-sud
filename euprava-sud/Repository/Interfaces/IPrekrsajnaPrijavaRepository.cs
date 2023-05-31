@@ -5,5 +5,6 @@ namespace euprava_sud.Repository.Interfaces
     public interface IPrekrsajnaPrijavaRepository : IGenericRepository<PrekrsajnaPrijava>
     {
         Task<IEnumerable<PrekrsajnaPrijava>> GetAllDoc();
+        Task<PrekrsajnaPrijava> GetByIdWithDocuments(Guid guid);
     }
 }

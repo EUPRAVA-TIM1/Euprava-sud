@@ -14,6 +14,6 @@ namespace eUprava.Court.Model
         public Opstina Opstina { get; set; }
         [ForeignKey("Opstina")]
         public Guid OpstinaId { get; set; }
-        public List<Rociste>? Rocista { get; set; } = new List<Rociste>();
+        
     }
 }

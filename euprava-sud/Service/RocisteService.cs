@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eUprava.Court.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
 
@@ -47,9 +48,15 @@ namespace euprava_sud.Service
             return await _rocisteRepository.GetAllByAdvokat(jmbg);
         }
 
-        public async Task<IEnumerable<Rociste>> GetAllByGradjanin(string jmbg)
+        public async Task<IEnumerable<RocisteDTO>> GetAllByGradjanin(string jmbg)
         {
-            return await _rocisteRepository.GetAllByGradjanin(jmbg);
+            var rocista = await _rocisteRepository.GetAllByGradjanin(jmbg);
+            return _mapper.Map<IEnumerable<RocisteDTO>>(rocista);
+        }
+
+        public async Task<IEnumerable<Rociste>> GetAllByPredmet(Guid predmetId)
+        {
+            return await _rocisteRepository.GetAllBy(r => r.PredmetId == predmetId);
         }
 
         public async Task<IEnumerable<Rociste>> GetAllBySudija(string jmbg)
@@ -60,6 +67,11 @@ namespace euprava_sud.Service
         public async Task<Rociste> GetById(Guid guid)
         {
             return await _rocisteRepository.GetById(guid);
+        }
+
+        public async Task<Rociste> GetByIdFullInformation(Guid guid)
+        {
+            return await _rocisteRepository.GetByIdFullInformation(guid);
         }
 
         public async Task<Rociste> Update(Rociste entity)

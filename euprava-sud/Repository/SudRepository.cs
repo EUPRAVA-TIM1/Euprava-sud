@@ -22,5 +22,15 @@ namespace euprava_sud.Repository
             }
             return null;
         }
+
+        public async Task<IEnumerable<Sud>> GetAllWithOpstina()
+        {
+            return _context.Sudovi.Include(s => s.Opstina).ToList();
+        }
+
+        public async Task<Sud> GetSudByIdWithOpstina(Guid id)
+        {
+            return _context.Sudovi.Include(s => s.Opstina).FirstOrDefault(s => s.SudId == id);
+        }
     }
 }

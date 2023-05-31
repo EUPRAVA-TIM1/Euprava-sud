@@ -1,4 +1,5 @@
 ﻿using eUprava.Court.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -53,12 +54,34 @@ namespace euprava_sud.Controllers
             return BadRequest();
         }
 
+        [HttpGet("gradjanin/{jmbg}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PredmetZaProveruDTO>> GetByGradjanin(string jmbg)
+        {
+            var predmeti = await _predmetService.GetAllByGradjanin(jmbg);
+            if (predmeti != null)
+            {
+                return Ok(predmeti);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("prijava/{prijavaId}")]
+        public async Task<ActionResult<Predmet>> GetByPrekrsajnaPrijava(string prijavaId)
+        {
+            var predmet = await _predmetService.GetByPrekrsajnaPrijava(Guid.Parse(prijavaId));
+            if (predmet != null)
+            {
+                return Ok(predmet);
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Predmet predmet)
         {
             var prekrsajnaPrijava = await _prekrsajnaPrijavaService.GetById(predmet.PrekrsajnaPrijavaId);
             var sudijaJmbg = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            /*var sudija = await _sudijaService.GetById(prekrsajnaPrijava.SudijaJmbg);*/
             var sudija = await _sudijaService.GetById(sudijaJmbg);
 
             predmet.Sudija = sudija;

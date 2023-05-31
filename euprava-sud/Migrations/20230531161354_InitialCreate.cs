@@ -152,18 +152,13 @@ namespace euprava_sud.Migrations
                     Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SudijaJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OptuzeniJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AdvokatJmbg = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AdvokatJmbg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     PrekrsajnaPrijavaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Predmeti", x => x.PredmetId);
-                    table.ForeignKey(
-                        name: "FK_Predmeti_Gradjani_AdvokatJmbg",
-                        column: x => x.AdvokatJmbg,
-                        principalTable: "Gradjani",
-                        principalColumn: "Jmbg");
                     table.ForeignKey(
                         name: "FK_Predmeti_Gradjani_SudijaJmbg",
                         column: x => x.SudijaJmbg,
@@ -291,11 +286,6 @@ namespace euprava_sud.Migrations
                 table: "Opstine",
                 column: "PTT",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Predmeti_AdvokatJmbg",
-                table: "Predmeti",
-                column: "AdvokatJmbg");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Predmeti_PrekrsajnaPrijavaId",

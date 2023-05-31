@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eUprava.Court.Model;
 using eUprava.Court.Model.Enumerations;
+using euprava_sud.Models.DTO;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
 
@@ -39,6 +40,12 @@ namespace euprava_sud.Service
             return await _predmetRepository.GetAll();
         }
 
+        public async Task<IEnumerable<PredmetZaProveruDTO>> GetAllByGradjanin(string gradjaninJmbg)
+        {
+            var retVal = await _predmetRepository.GetAllBy(p => p.OptuzeniJmbg == gradjaninJmbg);
+            return _mapper.Map<IEnumerable<PredmetZaProveruDTO>>(retVal);
+        }
+
         public async Task<IEnumerable<Predmet>> GetAllBySudija(string sudijaJmbg)
         {
             return await _predmetRepository.GetAllBy(p => p.SudijaJmbg == sudijaJmbg);
@@ -47,6 +54,12 @@ namespace euprava_sud.Service
         public async Task<Predmet> GetById(Guid guid)
         {
             return await _predmetRepository.GetById(guid);
+        }
+
+        public async Task<Predmet> GetByPrekrsajnaPrijava(Guid prijavaId)
+        {
+            var res = await _predmetRepository.GetAllBy(p => p.PrekrsajnaPrijavaId == prijavaId);
+            return res.FirstOrDefault();
         }
 
         public async Task<Predmet> GetWithPrekrsajnaPrijava(Guid guid)

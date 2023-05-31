@@ -37,9 +37,15 @@ namespace euprava_sud.Service
             return await _sudRepository.GetAll();
         }
 
+        public async Task<IEnumerable<Sud>> GetAllWithOpstina()
+        {
+            var res = await _sudRepository.GetAllWithOpstina();
+            return _mapper.Map<IEnumerable<Sud>>(res);
+        }
+
         public async Task<Sud> GetById(Guid guid)
         {
-            return await _sudRepository.GetById(guid);
+            return await _sudRepository.GetSudByIdWithOpstina(guid);
         }
 
         public async Task<IEnumerable<Sudija>> GetSudijeFromSud(Guid guid)

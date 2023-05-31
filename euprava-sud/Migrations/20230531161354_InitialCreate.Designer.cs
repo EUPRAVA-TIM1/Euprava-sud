@@ -12,7 +12,7 @@ using euprava_sud.Data;
 namespace euprava_sud.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230520161106_InitialCreate")]
+    [Migration("20230531161354_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -133,7 +133,7 @@ namespace euprava_sud.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AdvokatJmbg")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
@@ -159,8 +159,6 @@ namespace euprava_sud.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PredmetId");
-
-                    b.HasIndex("AdvokatJmbg");
 
                     b.HasIndex("PrekrsajnaPrijavaId");
 
@@ -360,10 +358,6 @@ namespace euprava_sud.Migrations
 
             modelBuilder.Entity("eUprava.Court.Model.Predmet", b =>
                 {
-                    b.HasOne("eUprava.Court.Model.Gradjanin", "Advokat")
-                        .WithMany()
-                        .HasForeignKey("AdvokatJmbg");
-
                     b.HasOne("eUprava.Court.Model.PrekrsajnaPrijava", "PrekrsajnaPrijava")
                         .WithMany()
                         .HasForeignKey("PrekrsajnaPrijavaId")
@@ -373,8 +367,6 @@ namespace euprava_sud.Migrations
                     b.HasOne("eUprava.Court.Model.Sudija", "Sudija")
                         .WithMany()
                         .HasForeignKey("SudijaJmbg");
-
-                    b.Navigation("Advokat");
 
                     b.Navigation("PrekrsajnaPrijava");
 
@@ -408,7 +400,7 @@ namespace euprava_sud.Migrations
                         .IsRequired();
 
                     b.HasOne("eUprava.Court.Model.Sud", "Sud")
-                        .WithMany("Rocista")
+                        .WithMany()
                         .HasForeignKey("SudId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -475,8 +467,6 @@ namespace euprava_sud.Migrations
 
             modelBuilder.Entity("eUprava.Court.Model.Sud", b =>
                 {
-                    b.Navigation("Rocista");
-
                     b.Navigation("Sudije");
                 });
 

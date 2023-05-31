@@ -15,7 +15,7 @@ namespace euprava_sud.Repository
 
         public async Task<IEnumerable<Sudija>> GetAllWithPrekrsajnePrijave()
         {
-            return _context.Sudije.Include(s => s.PrekrsajnePrijave).ToList();
+            return _context.Sudije.Include(s => s.PrekrsajnePrijave).Include(s => s.Opstina).ToList();
         }
 
         public async Task<IEnumerable<Sudija>> GetAllWithSud()
@@ -29,9 +29,9 @@ namespace euprava_sud.Repository
             return _context.Sudije.Where(s => s.OpstinaId == Guid.Parse(opstinaId)).OrderBy(s => s.PrekrsajnePrijave.Count).ToList();
         }
 
-        public async Task<Sudija> GetSudijaWithPrijave(string jmbg)
+        public async Task<Sudija> GetSudijaWithSudAndOpstina(string jmbg)
         {
-            return _context.Sudije.Where(s => s.Jmbg == jmbg).Include(s => s.PrekrsajnePrijave).FirstOrDefault();
+            return _context.Sudije.Where(s => s.Jmbg == jmbg).Include(s => s.Sud).Include(s => s.Opstina).FirstOrDefault();
         }
     }
 }

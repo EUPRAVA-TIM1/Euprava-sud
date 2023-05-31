@@ -7,5 +7,6 @@ namespace euprava_sud.Repository.Interfaces
         Task<IEnumerable<Rociste>> GetAllByGradjanin(string jmbg);
         Task<IEnumerable<Rociste>> GetAllBySudija(string jmbg);
         Task<IEnumerable<Rociste>> GetAllByAdvokat(string jmbg);
+        Task<Rociste> GetByIdFullInformation(Guid rocisteId);
     }
 }

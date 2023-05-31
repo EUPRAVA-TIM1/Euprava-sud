@@ -34,7 +34,7 @@ namespace euprava_sud.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<Sudija>> GetByJmbg(string jmbg)
         {            
-            var sudija = await _sudijaService.GetSudijaWithPrijave(jmbg);
+            var sudija = await _sudijaService.GetSudijaWIthSudAndOpstina(jmbg);
             if (sudija != null)
             {
                 return Ok(sudija);

@@ -19,9 +19,6 @@ namespace eUprava.Court.Model
         [ForeignKey("Sudija")]
         public string? SudijaJmbg { get; set; }
         public string? OptuzeniJmbg { get; set; }
-
-        public Gradjanin? Advokat { get; set; }
-        [ForeignKey("Advokat")]
         public string? AdvokatJmbg { get; set; }
         [DefaultValue(StatusPredmeta.OTVOREN)]
         public StatusPredmeta Status { get; set; }

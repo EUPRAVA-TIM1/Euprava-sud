@@ -22,7 +22,7 @@ namespace euprava_sud.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Sud>>> GetAll()
         {
-            return Ok(await _sudService.GetAll());
+            return Ok(await _sudService.GetAllWithOpstina());
         }
 
         [HttpGet("{id}")]

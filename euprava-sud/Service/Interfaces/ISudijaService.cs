@@ -8,7 +8,7 @@ namespace euprava_sud.Service.Interfaces
         Task<IEnumerable<Sudija>> GetAllWithSud();
         Task<IEnumerable<Sudija>> GetAllWithPrijave();
         Task<IEnumerable<Sudija>> GetSudijaForPrekrsaj(string opstinaId);
-        Task<Sudija> GetSudijaWithPrijave(string jmbg);
+        Task<Sudija> GetSudijaWIthSudAndOpstina(string jmbg);
         Task<Sudija> GetById(string jmbg);
         Task<Sudija> Login(string jmbg, string password);
         Task<Sudija> Add(Sudija entity);

@@ -69,9 +69,9 @@ namespace euprava_sud.Service
             return await _sudijaRepository.GetAll();
         }
 
-        public async Task<Sudija> GetSudijaWithPrijave(string jmbg)
+        public async Task<Sudija> GetSudijaWIthSudAndOpstina(string jmbg)
         {
-            return await _sudijaRepository.GetSudijaWithPrijave(jmbg);
+            return await _sudijaRepository.GetSudijaWithSudAndOpstina(jmbg);
         }
 
         public async Task<Sudija> Login(string jmbg, string password)

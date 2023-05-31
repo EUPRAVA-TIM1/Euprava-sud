@@ -39,7 +39,7 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
 builder.Services.AddControllers().AddJsonOptions( o =>
 {
     o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    o.JsonSerializerOptions.MaxDepth = 10;
+    o.JsonSerializerOptions.MaxDepth = 15;
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -71,6 +71,14 @@ builder.Services.AddScoped<ISudService, SudService>();
 
 builder.Services.AddScoped<SSOJwtMiddleware>();
 
+builder.Services.AddCors(o =>
+{
+    o.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003").AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,7 +86,7 @@ app.UseMiddleware<SSOJwtMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors();
 
 app.MapControllers();
 

@@ -28,7 +28,6 @@ namespace euprava_sud.Service
 
         public async Task<string> GenerateToken(string jmbg)
         {
-            /*var user = await _sudijaService.GetById(jmbg);*/
             var user = await _sudijaService.GetById(jmbg);
             bool isSudija = false;
             if (user != null)

@@ -19,5 +19,10 @@ namespace euprava_sud.Repository
             var retVal = _context.PrekrsajnePrijave.Include(p => p.Dokumenti).ToList();
             return retVal;
         }
+
+        public async Task<PrekrsajnaPrijava> GetByIdWithDocuments(Guid guid)
+        {
+            return _context.PrekrsajnePrijave.Include(p => p.Dokumenti).FirstOrDefault(p => p.PrekrsajnaPrijavaId == guid);
+        }
     }
 }

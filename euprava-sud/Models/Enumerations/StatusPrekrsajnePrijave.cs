@@ -3,8 +3,8 @@
     public enum StatusPrekrsajnePrijave
     {
         AKTIVAN,
-        PRIHVACEN,
+        PRIHVACEN, 
         ODBIJEN,
-        ARHIVA
+        ARHIVA 
     }
 }
