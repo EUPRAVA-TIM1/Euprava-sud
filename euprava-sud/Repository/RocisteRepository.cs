@@ -31,7 +31,7 @@ namespace euprava_sud.Repository
 
         public async Task<Rociste> GetByIdFullInformation(Guid rocisteId)
         {
-            return _context.Rocista.Include(r => r.Predmet).Include(r => r.Sud).Include(p => p.Sudija).FirstOrDefault(r => r.RocisteId == rocisteId);
+            return _context.Rocista.Include(r => r.Sud).Include(p => p.Sudija).Include(r => r.Predmet).ThenInclude(p => p.PrekrsajnaPrijava).FirstOrDefault(r => r.RocisteId == rocisteId);
         }
 
       

@@ -69,11 +69,14 @@ namespace euprava_sud.Service
             
             if (!opstine.Any())
             {
+                Console.WriteLine("NEMA OPSTINA");
+                Console.WriteLine(opstine);
                 opstine = await _opstinaRepository.GetAll();
             }
 
             var opstina = opstine.FirstOrDefault();
-
+            Console.WriteLine("OPSTINA");
+            Console.WriteLine(opstina);
             var sudije = await _sudijaRepository.GetSudijaForPrekrsaj(opstina.OpstinaId.ToString());
             if (sudije.Any())
                 return sudije;
