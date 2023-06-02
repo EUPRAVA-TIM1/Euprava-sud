@@ -13,6 +13,7 @@ namespace euprava_sud.Data
             CreateMap<Dokument, Dokument>().ReverseMap();
             CreateMap<Gradjanin, Gradjanin>().ReverseMap();
             CreateMap<OdlukaSudije, OdlukaSudije>().ReverseMap();
+            CreateMap<OdlukaSudije, OdlukaSudijeDTO>().ReverseMap();
             CreateMap<Opstina, Opstina>().ReverseMap();
             CreateMap<Predmet, Predmet>().ReverseMap();
             CreateMap<Predmet, PredmetZaProveruDTO>().ReverseMap();

@@ -1,5 +1,6 @@
 ﻿using eUprava.Court.Model.Enumerations;
 using euprava_sud.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,29 +47,35 @@ namespace euprava_sud.Controllers
         }
 
         [HttpGet("sudija/{jmbg}")]
-        [AllowAnonymous]
-        public async Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string jmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllBySudija(string jmbg)
         {
             return await _odlukaSudijeService.GetAllBySudija(jmbg);
         }
 
         [HttpGet("optuzeni/{jmbg}")]
         [AllowAnonymous]
-        public async Task<IEnumerable<OdlukaSudije>> GetAllByOptuzeni(string jmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllByOptuzeni(string jmbg)
         {
             return await _odlukaSudijeService.GetAllByOptuzeni(jmbg);
         }
 
         [HttpGet("advokat/{jmbg}")]
         [AllowAnonymous]
-        public async Task<IEnumerable<OdlukaSudije>> GetAllByAdvokat(string jmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllByAdvokat(string jmbg)
         {
             return await _odlukaSudijeService.GetAllByAdvokat(jmbg);
         }
 
+        [HttpGet("rociste/{id}")]
+        [AllowAnonymous]
+        public async Task<OdlukaSudije> GetAllByRociste(string id)
+        {
+            return await _odlukaSudijeService.GetByRociste(Guid.Parse(id));
+        }
+
         [HttpGet("search/{jmbg}/prekrsaj/{prekrsajId?}")]
         [AllowAnonymous]
-        public async Task<IEnumerable<OdlukaSudije>> GetAllForSudija(string jmbg, int? prekrsajId)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllForSudija(string jmbg, int? prekrsajId)
         {
             return await _odlukaSudijeService.GetAllForSudija(jmbg, prekrsajId);
         }

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using eUprava.Court.Model;
 using eUprava.Court.Model.Enumerations;
 using euprava_sud.Model;
+using euprava_sud.Models.DTO;
 using euprava_sud.Repository.Interfaces;
 using euprava_sud.Service.Interfaces;
 using System;
+using System.Collections;
 
 namespace euprava_sud.Service
 {
@@ -78,33 +81,48 @@ namespace euprava_sud.Service
             return await _odlukaSudijeRepository.GetAll();
         }
 
-        public async Task<IEnumerable<OdlukaSudije>> GetAllByAdvokat(string advokatJmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllByAdvokat(string advokatJmbg)
         {
-            return await _odlukaSudijeRepository.GetAllBy(o => o.AdvokatJmbg == advokatJmbg);
+            var odluke = await _odlukaSudijeRepository.GetAllByAdvokat(advokatJmbg);
+            return _mapper.Map<IEnumerable<OdlukaSudijeDTO>>(odluke);
         }
 
-        public async Task<IEnumerable<OdlukaSudije>> GetAllByOptuzeni(string optuzeniJmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllByOptuzeni(string optuzeniJmbg)
         {
-            return await _odlukaSudijeRepository.GetAllBy(o => o.OptuzeniJmbg == optuzeniJmbg);
+            var odluke = await _odlukaSudijeRepository.GetAllByGradjanin(optuzeniJmbg);
+            return _mapper.Map<IEnumerable<OdlukaSudijeDTO>>(odluke);
         }
 
-        public async Task<IEnumerable<OdlukaSudije>> GetAllBySudija(string sudijaJmbg)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllBySudija(string sudijaJmbg)
         {
-            return await _odlukaSudijeRepository.GetAllBy(o => o.SudijaJmbg == sudijaJmbg);
+            var odluke = await _odlukaSudijeRepository.GetAllBySudija(sudijaJmbg);
+            return _mapper.Map<IEnumerable<OdlukaSudijeDTO>>(odluke);
         }
 
-        public async Task<IEnumerable<OdlukaSudije>> GetAllForSudija(string sudijaJmbg, int? prekrsajnaPrijava)
+        public async Task<IEnumerable<OdlukaSudijeDTO>> GetAllForSudija(string sudijaJmbg, int? prekrsajnaPrijava)
         {
-            if (prekrsajnaPrijava != null)
-                return await _odlukaSudijeRepository.GetAllForSudija(sudijaJmbg, prekrsajnaPrijava);
+            
+            if (prekrsajnaPrijava != null) { 
+                var odluke = await _odlukaSudijeRepository.GetAllForSudija(sudijaJmbg, prekrsajnaPrijava);
+                return _mapper.Map<IEnumerable<OdlukaSudijeDTO>>(odluke);
+            }
             else
-                return await _odlukaSudijeRepository.GetAllBy(o => o.SudijaJmbg == sudijaJmbg);
+            {
+                var odluke = await _odlukaSudijeRepository.GetAllBySudija(sudijaJmbg);
+                return _mapper.Map<IEnumerable<OdlukaSudijeDTO>>(odluke);
+            }
+                
 
         }
 
         public async Task<OdlukaSudije> GetById(Guid guid)
         {
             return await _odlukaSudijeRepository.GetById(guid);
+        }
+
+        public async Task<OdlukaSudije> GetByRociste(Guid guid)
+        {
+            return await _odlukaSudijeRepository.GetByRociste(guid);
         }
 
         public async Task<OdlukaSudije> Update(OdlukaSudije entity)
